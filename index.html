@@ -3,152 +3,265 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>¿Quieres ser mi novia?</title>
+  <title>Pregunta Especial</title>
   <style>
-    /* Estilo general del body */
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #f3f4f6;
+      background-color: #f7e1d7;
       margin: 0;
-      padding: 0;
+      height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    .container {
       text-align: center;
+      position: relative;
+      max-width: 600px;
+      width: 90%;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
       color: #333;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1.5s ease-in-out;
     }
 
-    /* Estilo para el título */
-    h1 {
-      margin-bottom: 30px;
-      font-size: 2.5em;
-      color: #1e88e5;
-    }
-
-    /* Estilo para los botones */
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin-top: 20px;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
 
     button {
-      padding: 20px 40px;
+      padding: 15px 30px;
       font-size: 18px;
       cursor: pointer;
       border: none;
-      border-radius: 5px;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    button:hover {
-      transform: scale(1.05);
-    }
-
-    /* Estilo específico para el botón "No" */
-    #no {
-      background-color: #e57373;
-      color: white;
-    }
-
-    /* Estilo específico para el botón "Sí" */
-    #si {
-      background-color: #81c784;
-      color: white;
-    }
-
-    /* Estilo de los mensajes */
-    .message {
-      margin-top: 40px;
-      font-size: 1.2em;
-      color: #333;
+      border-radius: 25px;
+      margin: 10px;
+      position: absolute;
+      transition: all 0.3s ease-in-out;
+      display: inline-block;
       font-weight: bold;
     }
 
-    .success {
-      color: #4CAF50;
+    #yesBtn {
+      background-color: #ff4d6d;
+      color: white;
+      top: 300px;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
-    /* Estilo de los mensajes divertidos */
-    .fun-message {
+    #noBtn {
+      background-color: #4caf50;
+      color: white;
+      top: 400px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .move {
+      animation: moveButton 0.6s ease-in-out;
+    }
+
+    @keyframes moveButton {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    #congratulationMessage {
+      margin-top: 40px;
+      font-size: 24px;
+      color: #ff4d6d;
+      display: none;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-in-out;
+      font-family: 'Georgia', serif;
+    }
+
+    #restartBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff9800;
+      color: white;
+      border-radius: 15px;
+      border: none;
+      cursor: pointer;
+      display: none;
       margin-top: 20px;
-      font-size: 1.1em;
-      color: #555;
     }
 
-    /* Estilos para el diseño responsivo */
+    #noMessages {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #333;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-in-out;
+      font-family: 'Georgia', serif;
+    }
+
+    /* Mobile responsiveness */
     @media (max-width: 768px) {
-      h1 {
-        font-size: 2em;
+      h2 {
+        font-size: 28px;
       }
 
       button {
-        padding: 15px 30px;
         font-size: 16px;
+        padding: 12px 25px;
+      }
+
+      #yesBtn, #noBtn {
+        top: 250px;
+        width: 80%;
+      }
+
+      #noBtn {
+        top: 350px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 24px;
+      }
+
+      button {
+        font-size: 14px;
+        padding: 10px 20px;
+      }
+
+      #yesBtn, #noBtn {
+        top: 200px;
+        width: 85%;
+      }
+
+      #noBtn {
+        top: 300px;
+      }
+
+      #congratulationMessage {
+        font-size: 20px;
+      }
+
+      #restartBtn {
+        font-size: 14px;
       }
     }
   </style>
 </head>
 <body>
 
-  <h1>¿Quieres ser mi novia?</h1>
-
-  <div class="buttons">
-    <button id="no">No</button>
-    <button id="si">Sí</button>
+  <div class="container">
+    <h2 id="questionText">¿Quieres ser mi novia? 💖</h2>
+    <button id="yesBtn">Sí, claro 😍</button>
+    <button id="noBtn">No 😅</button>
+    <div id="noMessages"></div>
+    <div id="congratulationMessage">¡Felicidades! 🎉 Tu sonrisa ilumina mi día. 💕</div>
+    <button id="restartBtn">Reiniciar</button>
   </div>
 
-  <div id="message" class="message"></div>
-  <div id="funMessage" class="fun-message"></div>
+  <audio id="celebrationSound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+  <audio id="clickSound" src="https://www.soundjay.com/button/beep-01a.wav" preload="auto"></audio>
 
   <script>
-    let clicks = 0;
-    const buttonNo = document.getElementById("no");
-    const buttonSi = document.getElementById("si");
-    const message = document.getElementById("message");
-    const funMessage = document.getElementById("funMessage");
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const questionText = document.getElementById('questionText');
+    const congratulationMessage = document.getElementById('congratulationMessage');
+    const restartBtn = document.getElementById('restartBtn');
+    const noMessages = document.getElementById('noMessages');
+    const celebrationSound = document.getElementById('celebrationSound');
+    const clickSound = document.getElementById('clickSound');
 
-    buttonNo.addEventListener("click", () => {
-      clicks++;
+    const noMessagesArray = [
+      "¡¿De verdad vas a decir que no?! 🤨",
+      "¿Seguro? ¡Esto es serio! 😅",
+      "¡Vamos, piensa mejor! 💭",
+      "¡No seas tímida, ¿qué te cuesta?! 😋",
+      "¡Te estoy haciendo una propuesta en serio! 😜",
+      "¡Piensa en lo que podríamos hacer juntos! 😘",
+      "¡Oh no, no me dejes en visto! 😭",
+      "¿Sabías que decir 'No' es más difícil que decir 'Sí'? 😜",
+      "¿No tienes ganas de ser feliz? 😇",
+      "¡Venga, sé valiente y di que sí! 😁"
+    ];
 
-      if (clicks < 4) {
-        funMessage.textContent = "¿Estás segura? ¡Piensa bien, aún hay tiempo! 😅";
-      } else if (clicks === 4) {
-        // Intercambiamos las posiciones de los botones
-        const noPosition = buttonNo.getBoundingClientRect();
-        const siPosition = buttonSi.getBoundingClientRect();
+    let messageIndex = 0;
 
-        buttonNo.style.position = "absolute";
-        buttonNo.style.top = `${siPosition.top}px`;
-        buttonNo.style.left = `${siPosition.left}px`;
+    function moveNoButton() {
+      const container = document.querySelector('.container');
+      const containerRect = container.getBoundingClientRect();
+      const maxX = containerRect.width - noBtn.offsetWidth - 20;
+      const maxY = containerRect.height - noBtn.offsetHeight - 80;
 
-        buttonSi.style.position = "absolute";
-        buttonSi.style.top = `${noPosition.top}px`;
-        buttonSi.style.left = `${noPosition.left}px`;
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
 
-        buttonNo.textContent = "Sí";
-        buttonNo.style.backgroundColor = "#81c784";
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
 
-        buttonSi.textContent = "No";
-        buttonSi.style.backgroundColor = "#e57373";
+      noBtn.classList.add('move');
+      setTimeout(() => noBtn.classList.remove('move'), 300);
+    }
 
-        funMessage.textContent = ""; // Limpiamos el mensaje divertido
+    function swapPositions() {
+      const tempLeft = yesBtn.style.left;
+      const tempTop = yesBtn.style.top;
+
+      yesBtn.style.left = noBtn.style.left;
+      yesBtn.style.top = noBtn.style.top;
+
+      noBtn.style.left = tempLeft;
+      noBtn.style.top = tempTop;
+    }
+
+    function showNoMessage() {
+      if (messageIndex < noMessagesArray.length) {
+        noMessages.innerText = noMessagesArray[messageIndex];
+        messageIndex++;
+      } else {
+        messageIndex = 0;
+        noMessages.innerText = noMessagesArray[messageIndex];
       }
+    }
+
+    noBtn.addEventListener('click', () => {
+      clickSound.play();
+
+      moveNoButton();
+
+      showNoMessage();
+
+      questionText.innerText = "¿Seguro que no? 😅 ¡Dame una oportunidad!";
     });
 
-    buttonSi.addEventListener("click", () => {
-      if (clicks === 4) {
-        message.textContent = "¡Felicidades! Elegiste el camino correcto. 😊";
-        message.classList.add("success");
-        new Audio('https://www.soundjay.com/button/beep-07.wav').play();
-      } else {
-        message.textContent = "¡Aún puedes cambiar de opinión! 😁";
-      }
+    yesBtn.addEventListener('click', () => {
+      clickSound.play();
+
+      swapPositions();
+
+      congratulationMessage.style.display = "block";
+      congratulationMessage.innerText = "¡Felicidades! 🎉 Tu sonrisa ilumina mi día. 💕";
+      questionText.style.display = "none";
+      celebrationSound.play();
+      restartBtn.style.display = "block";
+    });
+
+    restartBtn.addEventListener('click', () => {
+      location.reload();
     });
   </script>
-
 </body>
 </html>
